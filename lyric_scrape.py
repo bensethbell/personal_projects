@@ -4,15 +4,22 @@ from pymongo import MongoClient
 import string
 from collections import Counter
 
-def pull_lyrics(url):
+def pull_lyrics(url, website = 'ohhla'):
 	text = ''
 	r = requests.get(url)
 	soup = bs4.BeautifulSoup(r.text)
-	body = soup.find_all('div', style="margin-left:10px;margin-right:10px;")
+	if website == 'rapgenius':
+		body = soup.find_all('div', class_ = 'lyrics')
+	elif website == 'ohhla':
+		print 'b2'
+		body = soup.find_all('div', style="float: left; min-width: 560px;")
+	else:
+		print 'b3'
+		body = soup.find_all('div', style="margin-left:10px;margin-right:10px;")
 	for p in body:
 		text += p.text
 
-	return text.replace('\n', ' ')
+	return text#.replace('\n', ' ')
 
 
 def get_urls(url):
