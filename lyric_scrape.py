@@ -11,15 +11,26 @@ def pull_lyrics(url, website = 'ohhla'):
 	if website == 'rapgenius':
 		body = soup.find_all('div', class_ = 'lyrics')
 	elif website == 'ohhla':
-		print 'b2'
 		body = soup.find_all('div', style="float: left; min-width: 560px;")
 	else:
-		print 'b3'
 		body = soup.find_all('div', style="margin-left:10px;margin-right:10px;")
 	for p in body:
 		text += p.text
 
 	return text#.replace('\n', ' ')
+
+def text_to_dict_ohhla(text, dic = {}):
+	dic_artist = {}
+	dic_albums = {}
+	dic_songs = {}
+
+	dic[artist] = 'Error'
+	dic[albums] = {}
+	dic[albums][1][song] = 'Error'
+	dic[albums][1][song]
+	album = 'Error'
+	song = 'Error'
+	for line in text.split()
 
 
 def get_urls(url):
@@ -31,6 +42,18 @@ def get_urls(url):
 		url = 'http://www.azlyrics.com/' + p['href'][2:]
 		url_list.append(url)
 	return url_list
+
+def get_urls_ohhla(artist_url):
+	urls = []
+	url = artist_url
+	stem = "/".join(url.split('/')[:-1])
+	r_url = requests.get(url)
+	soup_url = bs4.BeautifulSoup(r_url.text)
+	for url in soup_url.find_all('a'):
+		urls.append(stem + '/' + url['href'])
+	return urls
+
+# def get_album_urls_ohhla(album_url)
 
 def remove_brackets(t):
 	#removes brackets phrases, as these are usually not lyrics
